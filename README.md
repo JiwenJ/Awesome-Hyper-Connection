@@ -4,9 +4,9 @@ A curated and audited reading list for **Hyper-Connections (HC)**, **Manifold-Co
 
 本仓库聚焦 Zhu et al. 提出的 residual-stream Hyper-Connections 谱系：HC、Frac-Connections、GHC/DGHC、mHC、Identity HC/iHC、xHC，以及围绕流形约束、精确参数化、稳定性、系统优化、机制分析和下游应用的后续工作。
 
-> **Last audited:** 2026-08-12
+> **Last audited:** 2026-08-14
 >
-> **Coverage:** 58 deduplicated publication items under the policy below: 40 papers that directly develop, analyze, or materially apply HC/mHC, plus 18 adjacent/adoption or formal comparison items in a separate section. Repositories, models, framework integrations, tutorials, and discussions are tracked separately and are not counted as papers.
+> **Coverage:** 61 deduplicated publication items under the policy below: 41 papers that directly develop, analyze, or materially apply HC/mHC, plus 20 adjacent/adoption or formal comparison items in a separate section. Repositories, models, framework integrations, tutorials, and discussions are tracked separately; this snapshot references 112 unique GitHub repository roots, which are not counted as papers.
 >
 > **Important limitation:** the publication tables are a dated, source-verified snapshot—not a promise of absolute exhaustiveness. Code, model, package, tutorial, and discussion sections are curated discovery aids rather than exhaustive registries: new artifacts can appear continuously, indexes lag, and some models expose HC only in source code or configuration. Please open an issue or PR with a primary source when something is missing.
 
@@ -172,6 +172,7 @@ flowchart TD
 | 2026-07-20 | **[Manifold-Constrained Hyper-Connections for Parameter-Efficient Finetuning](https://arxiv.org/abs/2607.18130)** — Valentijn Oldenburg et al. | Treats residual routing as a PEFT axis around frozen OLMo-2 backbones; reports that identity residual mixing often helps and that mHC+LoRA can outperform either alone in some settings. | arXiv preprint |
 | 2026-07-27 | **[Semi-Supervised Structural Prior-Guided Network for Space Target Component Segmentation in ISAR Images](https://doi.org/10.3390/s26154769)** — Yonghua He et al. | Introduces a gated mHC Vision Transformer encoder with parallel feature streams and adaptive gating inside an ISAR segmentation system. | Sensors 2026 |
 | 2026-08-06 | **[Beyond Residual Connections: Manifold-Constrained Hyper-Connections for Robust Speaker Representation Learning](https://arxiv.org/abs/2608.05549)** — Zezhong Jin et al. | Replaces residual connections with mHC in ECAPA-TDNN, ResNet-34, Res2Net, and E-Res2Net for speaker recognition. | arXiv preprint |
+| 2026-08-13 | **[Resource-efficient Semantic Coding Schemes with Manifold-constrained Hyper-connections](https://arxiv.org/abs/2608.13253)** — Jingwen Fu, Ming Xiao | Builds an mHC semantic encoder with an entropy bottleneck for semantic and task-oriented wireless communication; analyzes coding length and compares residual, unconstrained-HC, and mHC systems under noisy and fading channels. | arXiv preprint |
 
 ## 5. Adjacent and adoption papers
 
@@ -194,8 +195,10 @@ These papers are relevant, but are **not** treated as new HC-family connection r
 | 2026-04-27 | **[How Much Is One Recurrence Worth? Iso-Depth Scaling Laws for Looped Language Models](https://arxiv.org/abs/2604.21106v2)** — Kristian Schwethelm et al. | The scaling-law paper added an HC case study in v2, reporting that hyper-connections raise its recurrence-equivalence exponent from `0.46` to `0.65`; HC was absent from v1. |
 | 2026-05-05 | **[Transformers with Selective Access to Early Representations](https://arxiv.org/abs/2605.03953)** — Skye Gunasekaran et al. | SATFormer is an early-representation retrieval method, but dynamic Hyper-Connections are a formal baseline across matched 130M, 340M, and 760M runs with quality, throughput, and memory results. |
 | 2026-05-18 | **[SNLP: Layer-Parallel Inference via Structured Newton Corrections](https://arxiv.org/abs/2605.17842)** — Ligong Han et al. | Uses the residual mixing matrix of mHC-style architectures to define HC Newton corrections for layer-parallel inference; the main contribution is a broader numerical-solver framework. |
+| 2026-05-20 | **[Most Transformer Modifications Still Do Not Transfer at 1–3B: A 2020–2026 Update to Narang et al. (2021) with Downstream Evaluation and a Noise Floor](https://arxiv.org/abs/2605.20798)** — Yang Zhao et al. | Benchmarks an output-side two-lane HyperConnections reimplementation under a controlled 1.2B/3B recipe, finding uniform underperformance at 1.2B and divergence at 3B. It is a substantive negative comparison, but omits the original method's full input-side lane mixing. |
 | 2026-05-31 | **[CART: Context-Anchored Recurrent Transformer](https://arxiv.org/abs/2606.01495)** — Chad A. Capps | Uses a HyperConnection blend inside its recurrent core and reports a negative ablation: under this recipe the HC machinery is individually vestigial. The paper's main focus is recurrent-model efficiency and stability. |
 | 2026-06-06 | **[DeRes: Decoupling Residual Stability and Adaptivity for Scalable CTR Prediction](https://arxiv.org/abs/2606.07980)** — Wenzhuo Cheng et al. | Proposes a different dual-path residual rule, but formally compares against mHC and analyzes accumulated spectral attenuation in doubly stochastic residual products. |
+| 2026-07-30 | **[From Expert Reduction to Behavioral Divergence: Tracing Numerical State through Sparse MoE Inference](https://arxiv.org/abs/2607.28097)** — Tianyang Zhu | Uses native DeepSeek-V4-Flash to trace floating-point expert-reduction differences through post-mHC and persistent state. The contribution is numerical runtime conformance rather than a new HC rule, but it identifies post-mHC as a reproducible intra-token boundary. |
 | 2026-08-10 | **[Motif 3: Technical Report](https://arxiv.org/abs/2608.09119)** — Junghwan Lim et al. | The 314B MoE model adopts a modified mHC alongside GDLA, expert-specific activations, and multi-token prediction; this is adoption evidence, not a standalone HC method. |
 
 ## Identity HC / iHC provenance
@@ -241,7 +244,7 @@ Informal posts reporting large Identity-HC experiments are not counted as papers
 
 ## Current frontier
 
-As of **2026-08-12**, the main research directions are:
+As of **2026-08-14**, the main research directions are:
 
 - **Does learned residual mixing matter?** Identity HC/iHC and stream-collapse results suggest that adaptive read/write may provide much of the benefit even when `H_res` is identity or close to identity.
 - **How should stability be imposed?** Birkhoff, permutation mixtures, Kronecker structure, orthogonal manifolds, spectral spheres, transportation polytopes, and identity transitions encode different assumptions about signal preservation and expressivity.
@@ -251,7 +254,7 @@ As of **2026-08-12**, the main research directions are:
 - **Are all streams actually used?** Causal ablations and stream-collapse diagnostics reveal dominant-stream behavior and motivate symmetry-breaking or specialization mechanisms.
 - **Can HC be hardware-efficient?** Projection solvers, fused kernels, sparse stream updates, recomputation, and HC-aware inference are increasingly central rather than secondary implementation details.
 
-The newest direct method located in this audit is **TEMPER**, submitted on **2026-08-08**. The newest adoption report is **Motif 3**, submitted on **2026-08-10**; the newest direct domain application remains the speaker-representation paper submitted on **2026-08-06**.
+The newest direct method located in this audit is **TEMPER**, submitted on **2026-08-08**. The newest direct application is the **resource-efficient semantic-coding** paper submitted on **2026-08-13**; the newest adoption report remains **Motif 3**, submitted on **2026-08-10**.
 
 ## Suggested reading order
 
@@ -284,7 +287,7 @@ No standalone official training repository from the original HC authors or DeepS
 | [yixuan/mHC-proj](https://github.com/yixuan/mHC-proj) | Newton Birkhoff projection, implicit backward pass, and warp-level CUDA | Author code |
 | [brain-lab-research/hc-stream-collapse](https://github.com/brain-lab-research/hc-stream-collapse) | Stream-collapse diagnostics and symmetry-breaking experiments | Research-group code |
 | [caidejia/HIFU-mHC-Diff](https://github.com/caidejia/HIFU-mHC-Diff) | mHC-UNet teacher/student training, one-step inference, sample data, and checkpoint instructions for mHC-Diff | Author code |
-| [aHapBean/xHC](https://github.com/aHapBean/xHC) | xHC, sparse `N=16/k=4` updates, and xHC-Flash | Author code |
+| [aHapBean/xHC](https://github.com/aHapBean/xHC) | xHC paper, figures, and benchmark artifacts; source code was not present at the audit date | Author project/paper artifacts; code not released |
 | [LieveEberson/mHC-PEFT](https://github.com/LieveEberson/mHC-PEFT) · [valentijn7/mHC_PEFT](https://github.com/valentijn7/mHC_PEFT) | Upstream experiments and maintained publication snapshot for mHC/KromHC/LoRA finetuning around OLMo-2 | Author code |
 | [Int-SR/IntTravel](https://github.com/Int-SR/IntTravel) | IntTravel dataset samples plus preprocessing and sequence-construction code; not a full release of the production model | Author dataset/preprocessing |
 | [deepseek-ai/Engram](https://github.com/deepseek-ai/Engram) | Official Engram paper repository; Engram models use mHC as the multi-stream backbone | Official adoption code |
@@ -293,13 +296,16 @@ No standalone official training repository from the original HC authors or DeepS
 | [SkyeGunasekaran/SATFormer](https://github.com/SkyeGunasekaran/SATFormer) | SATFormer training code with an explicit dynamic-HC baseline and matched residual-routing comparisons | Author code / adjacent benchmark |
 | [Caiyun-AI/MUDDFormer](https://github.com/Caiyun-AI/MUDDFormer) | Official JAX training and PyTorch inference code for the MUDDFormer comparison paper | Author code / adjacent benchmark |
 | [corl-team/lime](https://github.com/corl-team/lime) | Official LIMe implementation used in comparisons against HC | Author code / adjacent benchmark |
+| [whale-agent-lab/colibri](https://github.com/whale-agent-lab/colibri) · [upstream](https://github.com/JustVugg/colibri) | Exact Colibri runtime fork cited by *From Expert Reduction to Behavioral Divergence* for tracing DeepSeek-V4 numerical state through post-mHC; retained despite normal fork deduplication because the paper's runtime snapshot is material | Paper-linked runtime fork |
 
 ### Independent reference implementations and kernels
 
 | Repository | Scope |
 |---|---|
 | **[tokenbender/mHC-manifold-constrained-hyper-connections](https://github.com/tokenbender/mHC-manifold-constrained-hyper-connections)** | Mature research-oriented PyTorch/nanoGPT implementation with FineWeb10B configurations, baseline/HC/mHC comparisons, Sinkhorn and orthostochastic projection options, identity mixing, value residuals, tests, and ablations. **Independent, not DeepSeek official.** |
+| [ncbajaj/manifold-constrained-hyper-connections](https://github.com/ncbajaj/manifold-constrained-hyper-connections) | Paper-oriented PyTorch HC/mHC wrapper with explicit pre/post/residual mappings, interchangeable manifold projections, a Transformer example, and a 25-test suite. |
 | [lucidrains/hyper-connections](https://github.com/lucidrains/hyper-connections) | Installable PyTorch library tracking HC, mHC, and multiple later variants. Independent implementation. |
+| [joey00072/ohara — mHC experiments](https://github.com/joey00072/ohara/tree/master/experiments/mHC) | Runnable residual/HC/mHC language-model experiments with training and benchmark entry points. |
 | [hjc18/mHC-transformers](https://github.com/hjc18/mHC-transformers) | Hugging Face Qwen3/Llama integration with reported multi-billion-token experiments. |
 | [WithNucleusAI/mHC-triton](https://github.com/WithNucleusAI/mHC-triton) | Fused Triton mHC implementation with autograd and benchmarks. |
 | [AndreSlavescu/mHC.cu](https://github.com/AndreSlavescu/mHC.cu) | CUDA implementation with tests, benchmarks, and a training harness. |
@@ -316,13 +322,14 @@ No standalone official training repository from the original HC authors or DeepS
 | [unixsysdev/qwen3-mhc](https://github.com/unixsysdev/qwen3-mhc) | Qwen3-0.6B conversion, training, and analysis. |
 | [Ch-Kumar-Kartik/mhc_based_qwen](https://github.com/Ch-Kumar-Kartik/mhc_based_qwen) | Qwen3 warm-start conversion, equivalence checks, and training. |
 | [wtoth/hyper-connections](https://github.com/wtoth/hyper-connections) | Original HC replication in ImageNet/ViT experiments. |
+| [Malav-P/hyper-connections](https://github.com/Malav-P/hyper-connections) | Installable implementation of original static HC with fully connected and multi-head-attention wrappers plus tests; not mHC. |
 | [Lawrence-Godfrey/mhc-resnet-in-jax](https://github.com/Lawrence-Godfrey/mhc-resnet-in-jax) | JAX/NNX ResNet tutorial and CIFAR-100 experiment. |
 | [tokenbender/nanogpt-attnres-repro](https://github.com/tokenbender/nanogpt-attnres-repro) | Correctness-first nanoGPT comparison of baseline, mHC, and full/block Attention Residuals. |
 | [Realmbird/mhc-interp](https://github.com/Realmbird/mhc-interp) | Mechanistic-interpretability pipeline for matched residual, mHC, and mHC-lite checkpoints. |
 
-Additional compact educational implementations, kept separate from the more extensively documented projects above: [Parsa744/ManifoldConstrainedHyperConnections](https://github.com/Parsa744/ManifoldConstrainedHyperConnections), [Aaryyan777/mHC-Implementation](https://github.com/Aaryyan777/mHC-Implementation), [richardhahahaha/mHC](https://github.com/richardhahahaha/mHC), [Kareem404/hyper-connections](https://github.com/Kareem404/hyper-connections), and [amruthaajish17/Micro-mHC-Transformer](https://github.com/amruthaajish17/Micro-mHC-Transformer).
+Additional compact educational implementations, kept separate from the more extensively documented projects above: [Parsa744/ManifoldConstrainedHyperConnections](https://github.com/Parsa744/ManifoldConstrainedHyperConnections), [Aaryyan777/mHC-Implementation](https://github.com/Aaryyan777/mHC-Implementation), [richardhahahaha/mHC](https://github.com/richardhahahaha/mHC), [Kareem404/hyper-connections](https://github.com/Kareem404/hyper-connections), [amruthaajish17/Micro-mHC-Transformer](https://github.com/amruthaajish17/Micro-mHC-Transformer), [autumn-DL/HyperConnectionsModelWrapper](https://github.com/autumn-DL/HyperConnectionsModelWrapper), and [aamir-gmail/MC-Hyper-Connections-Implementation](https://github.com/aamir-gmail/MC-Hyper-Connections-Implementation).
 
-Experimental hybrids and application repositories without a separately verified formal paper: [BurnyCoder/mHCAttnRes](https://github.com/BurnyCoder/mHCAttnRes), [jdoliner/demhc](https://github.com/jdoliner/demhc), [2308087369/mHC-iTransformer](https://github.com/2308087369/mHC-iTransformer), [MohamedKhalidmk/HTAN](https://github.com/MohamedKhalidmk/HTAN), and [WYH302/MC-SAM](https://github.com/WYH302/Manifold-Constrained-Hyper-Connections-and-Prompting-for-SAM-in-Camouflaged-Scene-Segmentation).
+Experimental hybrids and application repositories without a separately verified formal paper: [BurnyCoder/mHCAttnRes](https://github.com/BurnyCoder/mHCAttnRes), [jdoliner/demhc](https://github.com/jdoliner/demhc), [2308087369/mHC-iTransformer](https://github.com/2308087369/mHC-iTransformer), [MohamedKhalidmk/HTAN](https://github.com/MohamedKhalidmk/HTAN), [WYH302/MC-SAM](https://github.com/WYH302/Manifold-Constrained-Hyper-Connections-and-Prompting-for-SAM-in-Camouflaged-Scene-Segmentation), [ashishjv1/mHC](https://github.com/ashishjv1/mHC) (nanoGPT, Muon, and an mHC-inspired A/B-mixer variant with tests), [hemantsingh443/HyperMuon](https://github.com/hemantsingh443/HyperMuon) (mHC+Muon notebook, logs, and checkpoints), [zhaoyingjun/Tiny-R2](https://github.com/zhaoyingjun/Tiny-R2) (runnable DeepSeek-V4-style hybrid), and [aamir-gmail/MC-hyper-connections-and-Engrams](https://github.com/aamir-gmail/MC-hyper-connections-and-Engrams) (experimental mHC+Engram models and results).
 
 Package and API indexes for implementations above: [`hyper-connections` on PyPI](https://pypi.org/project/hyper-connections/) · [conda-forge](https://anaconda.org/conda-forge/hyper-connections) · [`mhc-pytorch`](https://pypi.org/project/mhc-pytorch/) · [`mhc-mlx`](https://pypi.org/project/mhc-mlx/) · [`sparse-hyper-connections`](https://pypi.org/project/sparse-hyper-connections/) · [`pmetal-mhc` docs](https://docs.rs/crate/pmetal-mhc/0.4.0).
 
@@ -334,6 +341,7 @@ These are implementation/adoption evidence inside larger projects, not official 
 |---|---|
 | [DeepSeek TileKernels](https://github.com/deepseek-ai/TileKernels) | Official DeepSeek TileLang mHC kernels, modeling wrappers, tests, and benchmarks. |
 | [DeepSeek DeepGEMM](https://github.com/deepseek-ai/DeepGEMM/blob/main/csrc/apis/hyperconnection.hpp) | Hyper-connection GEMM APIs used by the DeepSeek-V4 stack. |
+| [TileLang mHC examples](https://github.com/tile-ai/tilelang/tree/main/examples/deepseek_mhc) | Fused DeepSeek-style mHC pre/post kernel examples in the upstream TileLang project. |
 | [LinkedIn Liger-Kernel](https://github.com/linkedin/Liger-Kernel/blob/main/src/liger_kernel/transformers/mhc.py) | Fused mHC Transformer API. |
 | [ROCm AITER](https://github.com/ROCm/aiter/blob/main/aiter/ops/triton/fusions/mhc.py) | AMD Triton mHC fusion. |
 | [FlashInfer](https://github.com/flashinfer-ai/flashinfer/blob/main/flashinfer/mhc.py) | CUDA/JIT `mhc_pre` and `mhc_post` kernels and a public four-stream API. |
@@ -344,27 +352,34 @@ These are implementation/adoption evidence inside larger projects, not official 
 | [NVIDIA TensorRT-LLM](https://github.com/NVIDIA/TensorRT-LLM/blob/main/tensorrt_llm/_torch/modules/mhc/hyper_connection.py) | PyTorch mHC inference module. |
 | [NVIDIA NeMo AutoModel](https://github.com/NVIDIA-NeMo/Automodel/blob/main/docs/guides/llm/dsv4-flash.md) | DeepSeek-V4 finetuning path with four Sinkhorn-mixed HC streams. |
 | [Google MaxText](https://github.com/AI-Hypercomputer/maxtext/blob/main/src/maxtext/layers/mhc.py) | JAX/Flax mHC layer. |
+| [PaddlePaddle PaddleFleet](https://github.com/PaddlePaddle/PaddleFleet/blob/develop/src/paddlefleet/transformer/hyper_connection.py) | Full mHC propagation and differentiable Sinkhorn implementation on the active `develop` branch. |
 | [PaddlePaddle PaddleFormers](https://github.com/PaddlePaddle/PaddleFormers/blob/develop/examples/best_practices/DeepSeek-V4/dsv4_practice.md) | DeepSeek-V4 training and finetuning with mHC and fused mHC kernels. |
 | [Ascend MindSpeed-LLM](https://github.com/Ascend/MindSpeed-LLM/blob/master/mindspeed_llm/fsdp2/models/deepseek_v4/modeling_deepseek_v4.py) | Ascend/FSDP2 DeepSeek-V4 model path using NPU mHC operators. |
 | [MindSpore Hyper-Parallel](https://github.com/mindspore-ai/hyper-parallel/blob/master/hyper_parallel/core/shard/ops/parallel_mhc_pre_sinkhorn.py) | Parallel mHC Sinkhorn sharding and backward rules. |
 | [Hugging Face Transformers](https://github.com/huggingface/transformers/blob/main/src/transformers/models/deepseek_v4/modeling_deepseek_v4.py) | `DeepseekV4HyperConnection` model integration. |
 | [vLLM](https://github.com/vllm-project/vllm/tree/main/vllm/models/deepseek_v4) | DeepSeek-V4 inference integration. |
+| [MetaX vLLM backend](https://github.com/MetaX-MACA/vLLM-metax) | DeepSeek-V4 mHC reference and accelerator-backend operators for MetaX hardware. |
 | [vLLM XPU Kernels](https://github.com/vllm-project/vllm-xpu-kernels/tree/main/csrc/xpu/mhc) | Intel XPU mHC kernels. |
+| [SGL Kernel XPU](https://github.com/sgl-project/sgl-kernel-xpu/blob/main/python/sgl_kernel/mhc.py) | Intel XPU mHC split/Sinkhorn and pre/post operators with benchmark support. |
 | [SGLang](https://github.com/sgl-project/sglang/blob/main/python/sglang/kernels/ops/layernorm/mhc.py) | Fused mHC/layer-normalization operators. |
 | [ExLlamaV3](https://github.com/turboderp-org/exllamav3/blob/master/exllamav3/modules/hyperconnections.py) | DeepSeek-V4 FP32 parallel residual streams, Sinkhorn mixing, and fused CUDA `hc_mix`. |
 | [llama.cpp / ggml](https://github.com/ggml-org/llama.cpp/blob/master/src/models/deepseek4.cpp) | DeepSeek-V4 hyper-connection model integration across ggml backends. |
 | [LMDeploy](https://github.com/InternLM/lmdeploy/blob/main/lmdeploy/pytorch/models/deepseek_v4.py) | DeepSeek-V4 model path with mHC. |
-| [vLLM Ascend](https://github.com/vllm-project/vllm-ascend/tree/main/csrc/moe/hc_pre) | Ascend `hc_pre` kernels. |
+| [vLLM Ascend](https://github.com/vllm-project/vllm-ascend/tree/main/csrc/moe/hc_pre) · [open PR #13705](https://github.com/vllm-project/vllm-ascend/pull/13705) · [review snapshot](https://github.com/fwerkor/vllm-ascend-deepseek-v4-310p) | Existing Ascend `hc_pre` kernels plus an open, unmerged DeepSeek-V4/Hyper-Connection support patch; the snapshot is linked for patch provenance, not treated as a separate upstream integration. |
+| [DeepLink DLBlas](https://github.com/DeepLink-org/DLBlas/tree/main/dlblas/kernels/ascend/deepseek_mhc) | Ascend Triton mHC pre/post kernels. |
 | [ByteDance-Seed VeOmni](https://github.com/ByteDance-Seed/VeOmni/tree/main/veomni/ops/kernels/mhc) | DeepSeek-V4 training support with eager or TileKernels mHC backends. |
 | [Tencent KsanaLLM](https://github.com/Tencent/KsanaLLM/blob/main/csrc/layers/mhc_layer.h) | C++ mHC inference layer. |
 | [xLLM](https://github.com/xLLM-AI/xllm/blob/main/xllm/core/kernels/mlu/hyper_connection.cpp) | Fused DeepSeek-V4 mHC kernels and layers for Cambricon MLU. |
 | [vmlx-swift](https://github.com/osaurus-ai/vmlx-swift/blob/main/Libraries/MLXLLM/Models/DeepseekV4.swift) | Native Swift/MLX DeepSeek-V4 with four-stream Sinkhorn mHC and smoke tests. |
 | [MLX-VLM](https://github.com/Blaizzy/mlx-vlm/blob/main/mlx_vlm/models/deepseek_v4/hyper_connection.py) | Apple-Silicon DeepSeek-V4 mHC inference layer. |
+| [PipeNetwork DeepSeek-V4 MLX](https://github.com/PipeNetwork/deepseek-v4-mlx) | End-to-end MLX port with four-stream/20-step Sinkhorn HyperConnections and dedicated tests. |
 | [OMLX](https://github.com/jundot/omlx/blob/main/omlx/patches/deepseek_v4/hyper_connection.py) | Apple-Silicon DeepSeek-V4 mHC patch and kernels. |
 | [Together XoRL](https://github.com/togethercomputer/xorl/blob/main/src/xorl/ops/dsv4/hyper_connection.py) | DeepSeek-V4 hyper-connection operator and model integration. |
 | [lucidrains/x-transformers](https://github.com/lucidrains/x-transformers/blob/main/x_transformers/x_transformers.py) | General Transformer library exposing HC/mHC configuration through the independent `hyper-connections` package. |
 | [OpenPipe ART](https://github.com/OpenPipe/ART/blob/main/src/art/megatron/dsv4/hyper_connection.py) | DeepSeek-V4/Megatron hyper-connection module. |
 | [Axolotl](https://github.com/axolotl-ai-cloud/axolotl/blob/main/src/axolotl/integrations/kernels/libs/dsv4/mhc.py) | DeepSeek-V4 mHC kernel integration. |
+| [LightSeek TokenSpeed](https://github.com/lightseekorg/tokenspeed/blob/main/python/tokenspeed/runtime/layers/deepseek_v4_mhc.py) | DeepSeek-V4 Triton mHC pre/post runtime operators. |
+| [AMD Primus](https://github.com/AMD-AGI/Primus) | AMD/ROCm DeepSeek-V4 training stack with HyperConnection modules, Triton HC expand/glue/collapse/Sinkhorn kernels, and tests. |
 
 ## Models, tutorials, and discussions
 
@@ -413,14 +428,15 @@ These are implementation/adoption evidence inside larger projects, not official 
 
 ## Audit method and known exclusions
 
-The 2026-08-12 audit used entity-level deduplication and searched:
+The 2026-08-14 audit used entity-level deduplication and searched:
 
 1. arXiv title/abstract/full-text variants for `Hyper-Connections`, `hyper connections`, `mHC`, `manifold-constrained`, `Birkhoff`, and `residual streams`;
 2. forward citation networks of the original HC and mHC papers, followed by primary-source verification;
 3. OpenReview, PMLR, IEEE/Crossref, Zenodo, institutional publication pages, and author/project pages;
 4. GitHub repository and source-code search for paper titles, method names, common class names, kernels, and DeepSeek-V4 integrations;
 5. Hugging Face Hub collections/models/Spaces plus PyPI, conda-forge, crates/docs.rs, technical documentation, blogs, videos, and discussion indexes for non-paper resources;
-6. manual deduplication of arXiv/venue versions, model quantizations, forks, renamed repositories, vendored framework copies, and successor repositories.
+6. manual deduplication of arXiv/venue versions, model quantizations, forks, renamed repositories, vendored framework copies, and successor repositories;
+7. an incremental post-2026-08-12 sweep of new arXiv records, full-text HC/mHC comparison hits, GitHub repositories, source paths, and open integration PRs, with candidate repository files inspected on their current default branches.
 
 For revised papers, **First public date** means the first publicly verifiable version that actually contains the HC/mHC-relevant material. This is why mHC-Diff is dated from arXiv v2 and the recurrence-scaling case study from v2, while FlowNet uses its earlier NeurIPS/OpenReview publication date rather than its later arXiv deposit.
 
@@ -434,6 +450,9 @@ Not counted under the paper policy:
 - *An Application of Manifold-Constrained Hyper-Connection in a PWA for Sovereign Debt Restructuring* uses “mHC” for a learned latent representation manifold rather than the Birkhoff-constrained parallel residual-stream mechanism.
 - *Manifold-Constrained Hyper-Connections: A Geometric Framework for Revolutionizing AI Training Stability* (DOI `10.13140/RG.2.2.26203.22568`) uses a different hypernetwork/manifold-weight-generation concept and is a terminology false positive.
 - `gm24med/MHC` and its `mhc` package use a sliding history-window skip over prior layer states rather than Zhu/DeepSeek-style persistent parallel residual streams, so they are not listed as paper-faithful reference implementations.
+- `thainamhoang/muonHC` describes a planned Hyperloop-mHC climate experiment, but its README explicitly says the mHC module still requires implementation; it is omitted as a placeholder at this audit date.
+- `stephane-hairy/rlm-mhc` expands and contracts temporary flows inside a layer and then returns to a single residual stream, rather than maintaining the paper's persistent parallel residual state; it is therefore not listed as an mHC reference implementation.
+- Forks and exact-content copies found around the tokenbender, lucidrains, KromHC, and mHC-GNN repositories are deduplicated to their upstreams. The paper-linked `whale-agent-lab/colibri` fork is the stated exception because the cited runtime snapshot is part of the numerical experiment.
 - [Orthostochastic Residual Mixing for Manifold-Constrained Hyper-Connections](https://analemma.ai/papers/523b5fe7-e78c-4d60-ac87-e4b164d85f4a/) and [Range-Capped Sinkhorn for Reliable Manifold-Constrained Hyper-Connections](https://analemma.ai/papers/28c3de0a-db8b-464d-a8e5-f4099b1ceba7/) are explicitly generated by an automated research system. They are linked for traceability but excluded from the publication count pending stable authorship and independent verification.
 
 ## Contributing
