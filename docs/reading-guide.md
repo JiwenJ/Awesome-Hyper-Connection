@@ -1,6 +1,6 @@
 # Hyper-Connections reading guide
 
-[← Back to the catalog](../README.md) · [Audit and source verification](search-audit-2026-11-09.md)
+[← Back to the catalog](../README.md)
 
 This guide covers Zhu et al.'s residual-stream Hyper-Connections (HC), Frac-Connections, GHC/DGHC, mHC, Identity HC/iHC, xHC, and related work on constraints, parameterization, stability, systems, and applications. The catalog is a dated, source-verified snapshot, not an exhaustive registry or an independent reproduction.
 
@@ -47,7 +47,7 @@ Concept proposals without completed experiments or proofs, and runtime studies i
 - unrelated uses of “hyperconnection,” “hyper-connected,” or “HC”;
 - hypergraph, networking, neuroscience, and database papers that do not descend from the residual-stream formulation;
 - blog posts, social-media experiments, and implementation notes without a formal paper. These may be mentioned for provenance, but are not counted as papers.
-- automatically generated research artifacts without stable authorship or independent scholarly review; two such FARS outputs are documented in the [audit](search-audit-2026-11-09.md#audit-method-and-known-exclusions) but are not counted.
+- automatically generated research artifacts without stable authorship or independent scholarly review.
 - model cards, repositories, package pages, tutorials, and technical blogs without a formal paper; these are tracked as resources, not publication items.
 
 AI-assisted manuscripts with identifiable responsible authors and completed proofs/experiments may qualify under the same evidence policy; assistance and unreviewed status are disclosed. Inclusion is not independent reproduction or a quality endorsement.
@@ -202,6 +202,6 @@ A repository that supports HC-specific training and inference appears only once 
 
 Stars and latest default-branch commits were refreshed via the GitHub API on **2026-11-09** for all 174 accessible indexed roots. The single **† historical** PaddleFleet row retains its 2026-08-20 metadata because its public endpoint still returns 404. Stars change continuously; the linked number opens the repository's stargazer list. A metadata refresh does not mean every old implementation was re-executed.
 
-No standalone official training repository from the original HC authors or DeepSeek's mHC paper was located in this audit. Labels therefore distinguish author/paper code, independent implementations, ecosystem integrations, and other artifacts rather than treating them as interchangeable.
+The catalog has not identified a standalone official training repository from the original HC authors or DeepSeek's mHC paper. Labels distinguish author/paper code, independent implementations, ecosystem integrations, and other artifacts rather than treating them as interchangeable.
 
 > **Interpretation:** for large framework repositories, the timestamp and Star count reflect the repository as a whole, not only its HC/mHC-specific path. Contextual code and paper links elsewhere in the README remain cross-references; these two tables are the canonical deduplicated repository index.
