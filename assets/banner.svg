@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" role="img" aria-labelledby="title description">
+  <title id="title">Awesome Hyper-Connections</title>
+  <desc id="description">A collection on Hyper-Connections and Manifold-Constrained Hyper-Connections. Parallel residual streams pass through a residual mixer. A shared sublayer reads from the streams and writes an update back to each stream.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1 1 L7 4 L1 7" fill="none" stroke="#0E7C7B" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <rect x="1" y="1" width="1278" height="318" rx="14" fill="#F6F8FB" stroke="#E3E8EF" stroke-width="2"/>
+
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+    <text x="72" y="66" fill="#607086" font-size="13" font-weight="600" letter-spacing="2.5">A CURATED RESEARCH COLLECTION</text>
+    <g fill="#1B2A41" font-family="Charter, 'Bitstream Charter', Georgia, serif" font-weight="600">
+      <text x="70" y="126" font-size="48">Awesome</text>
+      <text x="70" y="188" font-size="56">Hyper-Connections</text>
+    </g>
+    <text x="73" y="229" fill="#52627A" font-size="20">Multi-stream residual architectures</text>
+    <path d="M73 256 H119" fill="none" stroke="#0E7C7B" stroke-width="3" stroke-linecap="round"/>
+    <text x="135" y="261" fill="#607086" font-size="15">HC · mHC · Training &amp; inference</text>
+
+    <path d="M627 53 V267" fill="none" stroke="#DCE3EC" stroke-width="1.5"/>
+    <text x="680" y="66" fill="#607086" font-size="13" font-weight="600" letter-spacing="2.4">MULTI-STREAM RESIDUAL UPDATE</text>
+    <text x="713" y="101" fill="#52627A" font-size="14" font-weight="600">Streams in</text>
+    <text x="1114" y="101" fill="#52627A" font-size="14" font-weight="600">Streams out</text>
+
+    <g fill="none" stroke-width="2.5" stroke-linecap="round">
+      <path d="M714 123 H1169" stroke="#3D6FB6"/>
+      <path d="M714 144 H1169" stroke="#0E7C7B"/>
+      <path d="M714 165 H1169" stroke="#8261AE"/>
+      <path d="M714 186 H1169" stroke="#B27536"/>
+    </g>
+    <g fill="#F6F8FB" stroke-width="2">
+      <circle cx="714" cy="123" r="3.5" stroke="#3D6FB6"/>
+      <circle cx="714" cy="144" r="3.5" stroke="#0E7C7B"/>
+      <circle cx="714" cy="165" r="3.5" stroke="#8261AE"/>
+      <circle cx="714" cy="186" r="3.5" stroke="#B27536"/>
+      <circle cx="1169" cy="123" r="3.5" stroke="#3D6FB6"/>
+      <circle cx="1169" cy="144" r="3.5" stroke="#0E7C7B"/>
+      <circle cx="1169" cy="165" r="3.5" stroke="#8261AE"/>
+      <circle cx="1169" cy="186" r="3.5" stroke="#B27536"/>
+    </g>
+    <rect x="879" y="111" width="123" height="87" rx="11" fill="#FFF" stroke="#3D6FB6" stroke-width="1.7"/>
+    <text x="940.5" y="149" text-anchor="middle" fill="#1B2A41" font-size="17" font-weight="600">Residual mix</text>
+    <text x="940.5" y="173" text-anchor="middle" fill="#52627A" font-size="15">H<tspan baseline-shift="sub" font-size="11">res</tspan></text>
+
+    <g fill="none" stroke="#0E7C7B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M764 123 V222" marker-end="url(#arrow)"/>
+      <path d="M810 245 H870" marker-end="url(#arrow)"/>
+      <path d="M1011 245 H1069" marker-end="url(#arrow)"/>
+      <path d="M1118 224 V123"/>
+    </g>
+    <g fill="#0E7C7B">
+      <circle cx="764" cy="123" r="3"/>
+      <circle cx="764" cy="144" r="3"/>
+      <circle cx="764" cy="165" r="3"/>
+      <circle cx="764" cy="186" r="3"/>
+    </g>
+    <g fill="#FFF" stroke="#0E7C7B" stroke-width="1.4">
+      <circle cx="1118" cy="123" r="6.5"/>
+      <circle cx="1118" cy="144" r="6.5"/>
+      <circle cx="1118" cy="165" r="6.5"/>
+      <circle cx="1118" cy="186" r="6.5"/>
+      <rect x="719" y="225" width="90" height="40" rx="9"/>
+      <rect x="873" y="225" width="137" height="40" rx="9"/>
+      <rect x="1072" y="225" width="92" height="40" rx="9"/>
+    </g>
+    <path d="M1115 123 H1121 M1118 120 V126 M1115 144 H1121 M1118 141 V147 M1115 165 H1121 M1118 162 V168 M1115 186 H1121 M1118 183 V189" fill="none" stroke="#0E7C7B" stroke-width="1.25"/>
+    <g fill="#1B2A41" font-size="16" font-weight="600" text-anchor="middle">
+      <text x="764" y="251">Read</text>
+      <text x="941.5" y="251">Shared sublayer</text>
+      <text x="1118" y="251">Write</text>
+    </g>
+  </g>
+</svg>

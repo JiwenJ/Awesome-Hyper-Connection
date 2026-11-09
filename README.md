@@ -1,138 +1,37 @@
-# Awesome Hyper-Connections
+<a id="awesome-hyper-connections"></a>
 
-A curated and audited reading list for **Hyper-Connections (HC)**, **Manifold-Constrained Hyper-Connections (mHC)**, and closely related multi-residual-stream architectures.
+<div align="center">
 
-本仓库聚焦 Zhu et al. 提出的 residual-stream Hyper-Connections 谱系：HC、Frac-Connections、GHC/DGHC、mHC、Identity HC/iHC、xHC，以及围绕流形约束、精确参数化、稳定性、系统优化、机制分析和下游应用的后续工作。
+<img alt="Awesome Hyper-Connections: parallel residual streams with a shared sublayer for read and write" src="assets/banner.svg" width="100%">
 
-> **Last audited:** 2026-11-09
->
-> **Coverage:** one chronological table contains 81 deduplicated formal records under the policy below: 78 counted publication items (52 direct papers/formal manuscripts plus 26 adjacent/adoption or formal-comparison items) and 3 explicitly indexed-but-not-counted proposal/runtime records. The two-part repository index covers 175 unique GitHub roots: 117 training/research and 58 inference/serving. Repository and resource entries are not counted as papers.
->
-> **Important limitation:** the publication table is a dated, source-verified snapshot—not a promise of absolute exhaustiveness. Code, model, package, tutorial, and discussion sections are curated discovery aids rather than exhaustive registries: new artifacts can appear continuously, indexes lag, and some models expose HC only in source code or configuration. Please open an issue or PR with a primary source when something is missing.
+[![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
+[![GitHub](https://img.shields.io/badge/GitHub-JiwenJ%2FAwesome--Hyper--Connection-181717.svg?style=flat-square&logo=github)](https://github.com/JiwenJ/Awesome-Hyper-Connection)
+[![Publications](https://img.shields.io/badge/Publications-78-b31b1b.svg?style=flat-square&logo=arxiv&logoColor=white)](#papers)
+[![Repositories](https://img.shields.io/badge/Repositories-175-2ea44f.svg?style=flat-square&logo=github)](#repositories)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/JiwenJ/Awesome-Hyper-Connection/pulls)
+
+A curated collection of papers, implementations, and learning resources on **Hyper-Connections (HC)**, **Manifold-Constrained Hyper-Connections (mHC)**, and related multi-stream residual architectures.
+
+</div>
 
 ## Contents
 
-- [Inclusion policy](#inclusion-policy)
-- [Background and notation](#background-and-notation)
-- [Research lineage](#research-lineage)
-- [Papers and formal records (chronological)](#papers-and-formal-records-chronological)
-- [Identity HC / iHC provenance](#identity-hc--ihc-provenance)
-- [Method comparison](#method-comparison)
-- [Current frontier](#current-frontier)
-- [Suggested reading order](#suggested-reading-order)
-- [Repository index — last default-branch commit](#repository-index--last-default-branch-commit)
-  - [Training / research HC-mHC repositories](#training--research-hc-mhc-repositories-117)
-  - [Inference / serving HC-mHC repositories](#inference--serving-hc-mhc-repositories-58)
-- [Models, tutorials, and discussions](#models-tutorials-and-discussions)
-- [Audit method and known exclusions](#audit-method-and-known-exclusions)
-- [Pending verification](#pending-verification)
-- [2026-11-09 audit ledger](docs/search-audit-2026-11-09.md) · [2026-10-09 archive](docs/search-audit-2026-10-09.md)
-- [Contributing](#contributing)
+| Section | Jump to |
+| :---: | :--- |
+| [Papers](#papers) | [Inclusion policy](docs/reading-guide.md#inclusion-policy) · [Date conventions](docs/reading-guide.md#date-conventions) |
+| [Repositories](#repositories) | [Training / research](#training--research) · [Inference / serving](#inference--serving) |
+| [Resources](#resources) | [Models and demos](#models-demos-and-benchmarks) · [Explainers](#technical-explainers) · [Deployment](#framework-releases-and-deployment-notes) · [Videos and discussion](#videos-and-community-discussion) · [Packages](#packages-and-apis) |
+| [Reading guide](docs/reading-guide.md) | [Background](docs/reading-guide.md#background-and-notation) · [Research lineage](docs/reading-guide.md#research-lineage) · [Method comparison](docs/reading-guide.md#method-comparison) · [Suggested reading](docs/reading-guide.md#suggested-reading-order) |
+| [Pending verification](#pending-verification) | [2026-11-09 audit](docs/search-audit-2026-11-09.md) · [Contributing](#contributing) |
 
-## Inclusion policy
+<a id="papers-and-formal-records-chronological"></a>
 
-### Included as direct research
+## Papers
 
-A paper is included in the direct count when it reports completed experiments, proofs, or mechanism analysis and at least one of the following is true:
+**78 counted publications** (52 Direct · 26 Adjacent/Adoption) and **3 indexed but not counted** records. One timeline, ordered by the first verifiable public version containing the HC/mHC-relevant material, newest first. Same-day entries are sorted by title. [Scope and date conventions →](docs/reading-guide.md#inclusion-policy)
 
-1. it proposes a new HC/mHC-family connection rule, constraint, parameterization, or systems implementation;
-2. it directly analyzes the behavior of HC/mHC residual streams;
-3. HC/mHC is a material architectural contribution in the paper rather than a passing baseline;
-4. it adapts HC/mHC to a new training regime, inference algorithm, or application domain.
-
-### Separated as adjacent/adoption
-
-Papers receive the **Adjacent/Adoption** track when HC/mHC is important to the experiment or model, when the paper formalizes a broader residual question that explicitly covers HC/mHC, or when it reports a substantive controlled comparison against HC/mHC, but its main contribution is broader than hyper-connections.
-
-### Indexed but not counted
-
-Concept proposals without completed experiments or proofs, and runtime studies in which an HC/mHC tensor is only an observed pipeline boundary rather than the research target, receive the **Indexed · Not counted** track and are excluded from the publication count. Candidates without sufficient primary evidence are kept in the separate pending list, outside the timeline.
-
-### Code and resource labels
-
-- **Author/paper code** is linked by the paper, author, or research group, or clearly hosts the experiments for that paper.
-- **Independent implementation** is a third-party reimplementation or extension and is never presented as official code.
-- **Ecosystem integration** is HC/mHC support inside a larger training, inference, or kernel framework.
-- **Paper/runtime artifact** is tied to a relevant paper or exact experiment but is not represented as an HC/mHC implementation unless its current source tree contains one.
-- Forks and mirrors are deduplicated to their upstream repository. Empty repositories, “coming soon” placeholders, and copied single-file stubs without meaningful documentation are omitted.
-
-### Excluded
-
-- papers that only cite HC/mHC;
-- unrelated uses of “hyperconnection,” “hyper-connected,” or “HC”;
-- hypergraph, networking, neuroscience, and database papers that do not descend from the residual-stream formulation;
-- blog posts, social-media experiments, and implementation notes without a formal paper. These may be mentioned for provenance, but are not counted as papers.
-- automatically generated research artifacts without stable authorship or independent scholarly review; two such FARS outputs found during the audit are documented below but are not counted.
-- model cards, repositories, package pages, tutorials, and technical blogs without a formal paper; these are tracked as resources, not publication items.
-
-AI-assisted manuscripts with identifiable responsible authors and completed proofs/experiments may qualify under the same evidence policy; assistance and unreviewed status are disclosed. Inclusion is not independent reproduction or a quality endorsement.
-
-## Background and notation
-
-A convenient generic form of the HC-family update is
-
-```text
-X_(l+1) = H_res,l X_l + H_post,l^T F_l(H_pre,l X_l),
-```
-
-where `X_l` contains `n` parallel residual streams:
-
-- `H_pre` reads and aggregates information from the streams before the Transformer sublayer;
-- `H_post` writes the transformed output back to the streams;
-- `H_res` transports and mixes residual-stream states across depth.
-
-The literature repeatedly revisits four questions:
-
-1. How many residual streams should be maintained?
-2. How should a sublayer read from and write to those streams?
-3. What constraint on `H_res` prevents exploding, vanishing, or homogenizing matrix products?
-4. How can expanded residual state and dynamic routing be implemented without becoming memory-bandwidth bound?
-
-## Research lineage
-
-```mermaid
-flowchart TD
-    R[Residual connections] --> HC[Hyper-Connections]
-    HC --> FRAC[Frac-Connections]
-    HC --> VWN[Virtual Width Networks: GHC / DGHC]
-    HC --> MHC[mHC: Birkhoff-constrained mixing]
-    HC --> FLUID[FLUID: Liquid Hyper-Connections]
-
-    MHC --> HARM[Harmonized HC: feedback control]
-    MHC --> LITE[mHC-lite]
-    MHC --> KROM[KromHC]
-    MHC --> JPM[JPmHC]
-    MHC --> BE[Birkhoff-Exact HC]
-    MHC --> SPARSE[SHC: Sparse Selective HC]
-    MHC --> SHC[s²HC: spectral-sphere HC]
-    MHC --> OHC[oHC: quaternion SO4 rotations]
-    MHC --> UNI[Uni-mHC: unistochastic mixing]
-    MHC --> GO[go-mHC]
-    MHC --> EDELTA[EΔ-MHC-Geo]
-    MHC --> TBP[TBP-mHC]
-    MHC --> FAST[Accelerated Birkhoff projection]
-    MHC --> TEMPER[TEMPER]
-    MHC --> CIRC[C-mHC: circulant exact mixing]
-    MHC --> IHC[Identity HC: H_res = I]
-    MHC --> XHC[xHC / xHC-Flash]
-    MHC --> SINGLE[Single-Pass mHC / Mega-mHC]
-    MHC --> DAR[Dual Attention Residuals: two-stream block transport]
-    IHC --> GR[GatedResidual: feature-wise reads]
-    IHC --> SIHC[SiHC: spatially indexed streams]
-    IHC --> SIMPLE[SimpleHC: shared group-entry state]
-
-    MHC --> ANALYSIS[Reproduction, ablation, and stream-collapse analysis]
-    MHC --> MSSM[mHC-SSM]
-    MHC --> APP[Applications and systems]
-    IHC --> CHIMERA[Chimera: iHC]
-```
-
-## Papers and formal records (chronological)
-
-All **81 formal records** are kept in one global timeline: **78 counted publications** (52 direct and 26 adjacent/adoption) plus 3 explicitly indexed-but-not-counted records. Rows are sorted by the first publicly verifiable date of the HC/mHC-relevant material, newest first. Same-day records are sorted by title.
-
-| First public date | Track | Paper | Contribution / HC/mHC relevance | Status |
-|---|---|---|---|---|
+| Date | Track | Paper | Summary | Status |
+| :---: | :--- | :--- | :--- | :--- |
 | 2026-11-04 | Direct · Method/Systems | **[On the Design of Hyper-Connections: Simplification, Stability, and Scalability](https://arxiv.org/abs/2611.05984)** — Xiangdong Zhang et al. · [project artifacts](https://github.com/aHapBean/SimpleHC) | SimpleHC retains dynamic read/write gates and identity residual transitions. Sublayers share a group-entry state for gate inputs, batch reads, defer writes, and use scalar corrections for earlier sublayer contributions. At the largest profiled width, training-time overhead is 2.4% versus vanilla residuals (about 7% for mHC); reported quality is comparable to mHC in 15B/30B MoE experiments. The four full-width streams remain. | arXiv preprint; linked project contains paper/figures, no released implementation verified |
 | 2026-10-27 | Adjacent/Adoption | **[Think Twice: The Metis-1.6 Technical Report](https://arxiv.org/abs/2610.37903)** — Giulianno Vollmer · [model releases](https://huggingface.co/Lernex) | The twice-looped Praxis and Logos Mamba-2/attention MoEs use four full-width streams with pass-conditioned read/write/mix controllers and eight Sinkhorn iterations. Latent projections are in the MoE experts, not in the persistent mHC state. | arXiv technical report |
 | 2026-10-19 | Direct · Application | **[Manifold-Constrained Residual Adaptation with Frame-Adaptive Layer Aggregation for Speaker Verification](https://arxiv.org/abs/2610.25892)** — Zezhong Jin et al. | Applies Sinkhorn mixing to feature groups within the existing hidden width of a frozen WavLM encoder. A near-identity learned interpolation gate controls the adapted residual; separate ablations assess the adapter, mixing constraint, and gate. The approach does not allocate additional full-width streams. | arXiv preprint; distinct follow-up to the earlier speaker-encoder mHC study |
@@ -215,100 +114,20 @@ All **81 formal records** are kept in one global timeline: **78 counted publicat
 | 2025-02-10 | Adjacent/Adoption | **[DeepCrossAttention: Supercharging Transformer Residual Connections](https://arxiv.org/abs/2502.06785)** — Mike Heddes et al. | Proposes cross-depth attention rather than HC, but reports controlled LM1B/C4 comparisons against dynamic Hyper-Connections, including stack-size ablations. | — |
 | 2024-09-29 | Direct · Core | **[Hyper-Connections](https://arxiv.org/abs/2409.19606)** — Defa Zhu et al. · [OpenReview](https://openreview.net/forum?id=9FqARW7dwB) · [proceedings](https://proceedings.iclr.cc/paper_files/paper/2025/hash/f1e8ff97057e0c3f6bcb7018c78d4df1-Abstract-Conference.html) | Introduces multiple residual streams and learnable/static or dynamic read, write, and residual-transition mappings. Motivated by the PreNorm/PostNorm trade-off between representation collapse and gradient vanishing. | ICLR 2025 |
 
-## Identity HC / iHC provenance
+<a id="repository-index--last-default-branch-commit"></a>
 
-**Identity HC is a variant/ablation, not a standalone paper.**
+## Repositories
 
-1. The later ICML 2026 version of **[mHC](https://openreview.net/forum?id=mDhyxu8WRb)** contains an ablation named **Identity HC**.
-2. Its defining simplification is
+**175 unique GitHub repositories** · 117 training/research · 58 inference/serving. Each table is sorted by the latest default-branch committer timestamp (UTC), newest first. Repositories with both paths appear under Training / research.
 
-   ```text
-   H_res,l = I
-   ```
+Stars and timestamps are whole-repository snapshots from **2026-11-09**; **†** marks historical metadata. [Classification and metadata →](docs/reading-guide.md#repository-classification-and-metadata)
 
-3. Dynamic/adaptive `H_pre` and `H_post` remain. Therefore, the sublayer can still read an input-dependent mixture of streams and write the result back with input-dependent weights. What disappears is the explicit `n×n` residual-state transition and its Sinkhorn projection.
-4. **[Chimera](https://arxiv.org/abs/2607.28611)** later uses the full name **Identity Hyper-Connections (iHC)** and deploys the design as an architectural component.
+<a id="training--research-hc-mhc-repositories-117"></a>
 
-Recommended citation convention:
+### Training / research
 
-- cite the later mHC/ICML version for the **Identity HC ablation provenance**;
-- cite Chimera for the explicit **Identity Hyper-Connections (iHC)** terminology and its use in a model architecture.
-
-Informal posts reporting large Identity-HC experiments are not counted as papers in this repository.
-
-## Method comparison
-
-| Method | Residual transition / constraint | Cross-stream interaction | State-width / systems profile | Main trade-off |
-|---|---|---|---|---|
-| Residual connection | Fixed identity | Single stream | `C` | Stable but rigid |
-| HC | Unconstrained learned/dynamic `H_res` | Adaptive read, write, and residual mixing | About `nC` residual state | Expressive, but deep products can be unstable and memory traffic grows |
-| Frac-Connections | Routing among hidden-state fractions | Interaction among partitions | About `C` residual state | Lower memory cost, but less virtual-width capacity |
-| GHC / DGHC | Generalized carry/read/write maps | Flexible virtual-to-backbone routing | Configurable virtual width | General formulation; more routing machinery |
-| mHC | Doubly stochastic `H_res` via Sinkhorn | Full residual mixing plus adaptive read/write | `nC` plus projection/routing overhead | Stable large-scale training, but projection and I/O add cost |
-| Harmonized HC | Feedback-controlled applied composite gain | Unconstrained local routing under a global gain budget | Controller plus composite-gain tracking | Preserves selective amplification, but evidence is currently limited to an institutional preprint and controlled retrieval experiments |
-| mHC-lite / BE-HC | Exact Birkhoff construction | Full constrained residual mixing | Avoids iterative Sinkhorn; complete permutation bases can scale poorly | Exactness versus combinatorial basis size |
-| Sparse Selective HC (SHC) | Sparse permutation/orthogonal routing | Selective multi-stream exchange | Targets lower routing and cache cost | Sparse structure improves efficiency but restricts available routes |
-| KromHC | Kronecker-factorized exact doubly stochastic mixer | Structured residual mixing | Better stream-count scaling | Efficiency at the cost of factorized structure |
-| go-mHC / TBP-mHC | Exact direct parameterizations | More complete Birkhoff coverage | No iterative Sinkhorn | Parameterization complexity and implementation maturity |
-| TEMPER | Tensor-network generators feeding manifold routing | Token-dependent read/mix/write maps | Reduces generator parameter growth at larger stream counts | Rank/efficiency trade-off and newer implementation ecosystem |
-| C-mHC | Softmax-weighted circulant permutation mixture; exactly doubly stochastic | Translation-equivariant, commutative cyclic mixing | `n` mixer coefficients, one softmax, Fourier-diagonalizable products; full `nC` state remains | Strong structural restriction versus the full Birkhoff polytope; evidence is an unreviewed, small-scale repository manuscript |
-| JPmHC / EΔ-MHC-Geo | Orthogonal or spectrum-controlled manifolds | Rotation/reflection-style mixing | Geometry-dependent | Strong Jacobian/norm control with additional geometric machinery |
-| s²HC | Spectral-sphere constraint; negative entries allowed | Additive and subtractive mixing | Avoids Sinkhorn and permutation enumeration | More expressive feasible set under a different stability constraint; same paper previously abbreviated sHC |
-| oHC | Orthogonal `SO(n)` residual rotations; quaternion construction for `n=4` | Signed, norm-preserving residual exchange | Constant-size closed form for four streams; full `nC` state remains | Preserves differences rather than averaging them, but abandons nonnegative stochastic mixing |
-| Uni-mHC | Phase-projected real `W = Re(U diag(exp(iφ)))`; auxiliary `S = abs(U)^2` is doubly stochastic | Signed stream mixing with phase control | Unitary parameterization; full `nC` state remains | Applied `W` is not a Birkhoff-constrained residual operator; independent unreviewed toy/short-run evidence |
-| Identity HC / iHC | `H_res = I` | No direct residual-transition mixing; adaptive read/write remain | Removes dynamic `n×n` mixer and Sinkhorn | Simplicity and stability versus giving up explicit residual-stream exchange |
-| SimpleHC | `H_res = I`; layer-specific gates from shared group-entry state | Adaptive read/write; scalar corrections account for earlier group writes | Keeps full-width streams; batches reads and defers writes | Less activation traffic, not latent-state compression; gate inputs no longer depend on every intermediate state |
-| GatedResidual (GR) | Identity carry; feature-wise input gates and scalar per-stream writes | Learned gated reads/writes without a residual mixer | Four full-width streams in Qwen3.8; low-rank controller is not latent-state compression | Removes Sinkhorn/mixing work while retaining expanded persistent state |
-| SiHC | Identity carry with static feature-wise read/write maps | Spatially indexed streams for diffusion-transformer subpatches | Targets persistent-state traffic and fused read/write kernels | Diffusion-specific bandwidth/representation trade-off, not interchangeable with token-dynamic mHC |
-| xHC | Large-`N` sparse update with dense access | Rich read/write; subset of streams updated per layer | Demonstrated at `N=16`; xHC-Flash reduces memory traffic | Makes stream count scalable while retaining a wider persistent state |
-| Single-Pass mHC | Carries the next input-mixing coefficients from the preceding block | Delayed read coefficients with dynamic residual/write maps | Mega-mHC fuses update/read/coefficient prediction and normalization; reported deployment activation traffic `(4n+4)d → (2n+2)d` | Changes coefficient timing rather than compressing persistent streams; source is the V4.1 technical report |
-
-## Current frontier
-
-As of **2026-11-09**, the main research directions are:
-
-- **Does learned residual mixing matter?** Identity HC/iHC and stream-collapse results suggest that adaptive read/write may provide much of the benefit even when `H_res` is identity or close to identity.
-- **How should stability be imposed?** Birkhoff, permutation and circulant mixtures, Kronecker structure, orthogonal manifolds, spectral spheres, transportation polytopes, and identity transitions encode different assumptions about signal preservation and expressivity.
-- **Can stability be controlled instead of projected?** Harmonized HC reframes the problem as feedback on applied composite gain, while the reproduction report emphasizes the gap between mathematical constraint behavior and end-to-end cost on commodity implementations.
-- **Can stream count become a genuine scaling axis?** xHC addresses the information and cubic-routing bottlenecks that prevented useful scaling beyond four streams.
-- **Can routing generators and mixers scale with stream count?** TEMPER tensorizes the dynamic generators, while C-mHC restricts the mixer to a circulant family with only `n` coefficients; both complement exact parameterizations and sparse stream updates.
-- **Are all streams actually used?** Causal ablations and stream-collapse diagnostics reveal dominant-stream behavior and motivate symmetry-breaking or specialization mechanisms.
-- **Can HC be hardware-efficient?** Projection solvers, fused kernels, sparse updates, recomputation, and group-level reuse of expanded state address different costs. SimpleHC reduces repeated access even at fixed stream count; xHC scales stream count with sparse updates.
-
-Recent additions sharpen these questions: **selective-routing analysis** separates read/write use from near-identity residual transport; **Birkhoff geometry** analyzes mean/difference channels and contraction; **oHC** substitutes rotations for stochastic averaging; **SiHC** targets diffusion-transformer persistent-state bandwidth; and **Single-Pass mHC / Mega-mHC** reduces repeated activation traffic in DeepSeek-V4.1. The repository-hosted **multi-head mHC** report supplies parameter- and learning-rate-controlled negative results for one stream-specialization proposal. None establishes that simply doubling stream count must improve quality at fixed cost.
-
-The newest counted direct record verified here is **SimpleHC** (**2026-11-04**); the newest adjacent/adoption record is **Metis-1.6** (**2026-10-27**). **Depth Memory**, **MSAR**, and **DAR** are useful comparisons: they change how information is retrieved across depth, rather than simply increasing the number of persistent mHC streams. Unverified candidates are tracked separately and are not counted.
-
-## Suggested reading order
-
-1. **Hyper-Connections** — original motivation and multi-stream formulation.
-2. **Frac-Connections** and **Virtual Width Networks** — memory-efficient and generalized virtual-width views.
-3. **mHC** — instability of unconstrained products, Birkhoff constraints, and systems engineering.
-4. **Operator-Constrained Residual Connections**, **Harmonized HC**, **mHC-lite**, **KromHC**, **JPmHC**, **SHC/s²HC**, **oHC**, **go-mHC**, **TBP-mHC**, **TEMPER**, and the repository-hosted **C-mHC / Uni-mHC** manuscripts — compare theory, feedback control, exactness, geometry, sparsity, expressivity, and scaling.
-5. **A Critical Analysis and Reproducibility Study**, **Ablate and Rescue**, **Analyzing Stream Collapse**, **How Does mHC Use Its Residual Streams?**, **Birkhoff Geometry**, **DepthBench**, and **multi-head mHC** — examine cost, reproducibility, actual stream use, and controlled negative results.
-6. **Identity HC/iHC**, **SimpleHC**, and **xHC** — compare eliminating residual mixing, reducing wide-state traffic at fixed stream count, and scaling to many streams with sparse updates.
-7. **FLUID**, **mHC-SSM**, **Stresa**, and the application/systems papers — evaluate transfer beyond LLM pre-training.
-8. **Qwen3.8 GatedResidual**, **SiHC**, and **DeepSeek-V4.1 Single-Pass mHC** — compare identity-carry, spatial stream allocation, and fused activation-traffic reduction; distinguish controller compression from persistent-state compression.
-
-## Repository index — last default-branch commit
-
-This index contains all **175 deduplicated GitHub repository roots** referenced by this README, split into exactly two non-overlapping blocks:
-
-- **Training / research (117):** repositories with HC-specific training, finetuning, backward/autograd, or paper-experiment support, plus explicitly labeled research, educational, manuscript, and model documentation artifacts.
-- **Inference / serving (58):** inference-first runtimes, serving frameworks, model ports, forward-only kernels, and deployment-performance tooling.
-
-A repository that supports HC-specific training and inference appears only once under **Training / research**. Within each block, entries are sorted by the committer timestamp of the latest captured commit on the current default branch, newest first. Exact timestamp ties are sorted by canonical repository name.
-
-Stars and latest default-branch commits were refreshed via the GitHub API on **2026-11-09** for all 174 accessible indexed roots. The single **† historical** PaddleFleet row retains its 2026-08-20 metadata because its public endpoint still returns 404. Stars change continuously; the linked number opens the repository's stargazer list. A metadata refresh does not mean every old implementation was re-executed.
-
-No standalone official training repository from the original HC authors or DeepSeek's mHC paper was located in this audit. Labels therefore distinguish author/paper code, independent implementations, ecosystem integrations, and other artifacts rather than treating them as interchangeable.
-
-> **Interpretation:** for large framework repositories, the timestamp and Star count reflect the repository as a whole, not only its HC/mHC-specific path. Contextual code and paper links elsewhere in the README remain cross-references; these two tables are the canonical deduplicated repository index.
-
-### Training / research HC-mHC repositories (117)
-
-| Last default-branch commit (UTC) | Repository | Stars | Category | Scope |
-|---|---|---:|---|---|
+| Last commit (UTC) | Repository | Stars | Category | Scope |
+| :---: | :--- | ---: | :--- | :--- |
 | [2026-11-09 05:31](https://github.com/flashinfer-ai/flashinfer/commit/bc47d043c6bea150a48bc6395129abcdfc98f856) | [flashinfer-ai/flashinfer](https://github.com/flashinfer-ai/flashinfer) · [HC path](https://github.com/flashinfer-ai/flashinfer/blob/main/docs/api/mhc.rst) | [⭐ 6,878](https://github.com/flashinfer-ai/flashinfer/stargazers) | Ecosystem integration | CUDA/JIT mHC inference kernels plus experimental CAKE mHC training forward/backward, autograd, and checkpoint replay; supported hardware and shapes are documented. |
 | [2026-11-09 05:01](https://github.com/AI-Hypercomputer/maxtext/commit/d1c0d0afef36dd51c7674e7b61daeb79e6ee0f33) | [AI-Hypercomputer/maxtext](https://github.com/AI-Hypercomputer/maxtext) · [HC path](https://github.com/AI-Hypercomputer/maxtext/blob/main/src/maxtext/layers/mhc.py) | [⭐ 2,458](https://github.com/AI-Hypercomputer/maxtext/stargazers) | Ecosystem integration | JAX/Flax mHC layer. |
 | [2026-11-09 04:42](https://github.com/flagos-ai/FlagGems/commit/319707ebbbd8427a6131a62e281f94dc81884878) | [flagos-ai/FlagGems](https://github.com/flagos-ai/FlagGems) · [HC path](https://github.com/flagos-ai/FlagGems/tree/master/src/flag_gems/fused/mhc) | [⭐ 1,169](https://github.com/flagos-ai/FlagGems/stargazers) | Ecosystem integration | Multi-backend fused mHC pre/post, backward, Sinkhorn, tests, and benchmarks. |
@@ -427,10 +246,12 @@ No standalone official training repository from the original HC authors or DeepS
 | [2025-05-28 12:07](https://github.com/corl-team/lime/commit/424281209236fc4e461d3e32160df26245f6ba4c) | [corl-team/lime](https://github.com/corl-team/lime) | [⭐ 39](https://github.com/corl-team/lime/stargazers) | Author code / adjacent benchmark | Official LIMe repository with a substantive dynamic-HC baseline in `src/lm/hc.py` |
 | [2024-10-21 05:02](https://github.com/autumn-DL/HyperConnectionsModelWrapper/commit/e9ade8318fc14e84b588e13a3d40472a74431836) | [autumn-DL/HyperConnectionsModelWrapper](https://github.com/autumn-DL/HyperConnectionsModelWrapper) | [⭐ 2](https://github.com/autumn-DL/HyperConnectionsModelWrapper/stargazers) | Educational implementation | Compact educational wrapper. |
 
-### Inference / serving HC-mHC repositories (58)
+<a id="inference--serving-hc-mhc-repositories-58"></a>
 
-| Last default-branch commit (UTC) | Repository | Stars | Category | Scope |
-|---|---|---:|---|---|
+### Inference / serving
+
+| Last commit (UTC) | Repository | Stars | Category | Scope |
+| :---: | :--- | ---: | :--- | :--- |
 | [2026-11-09 05:55](https://github.com/sgl-project/sglang/commit/3e8d7c9e093b3378d1709e73beb34f7789130b4c) | [sgl-project/sglang](https://github.com/sgl-project/sglang) · [HC path](https://github.com/sgl-project/sglang/blob/main/python/sglang/kernels/ops/layernorm/mhc.py) | [⭐ 38,594](https://github.com/sgl-project/sglang/stargazers) | Ecosystem integration | Fused mHC/layer-normalization operators. |
 | [2026-11-09 05:55](https://github.com/tile-ai/TileOPs/commit/da89e0499022bb7ac504bcc026fa542fa5f5694d) | [tile-ai/TileOPs](https://github.com/tile-ai/TileOPs) · [HC path](https://github.com/tile-ai/TileOPs/blob/main/src/tileops/_ops/sequence_modeling/mhc.py) | [⭐ 202](https://github.com/tile-ai/TileOPs/stargazers) | Ecosystem integration | Tile-based mHC operators and low-level kernels with tests and benchmarks. |
 | [2026-11-09 05:48](https://github.com/vllm-project/vllm/commit/21ef2e5b0a49a68edc27b8f5e106c5892d02e7bc) | [vllm-project/vllm](https://github.com/vllm-project/vllm) · [HC path](https://github.com/vllm-project/vllm/tree/main/vllm/models/deepseek_v4) | [⭐ 96,576](https://github.com/vllm-project/vllm/stargazers) | Ecosystem integration | DeepSeek-V4 inference integration. |
@@ -490,9 +311,9 @@ No standalone official training repository from the original HC authors or DeepS
 | [2026-08-06 11:44](https://github.com/SandAI-org/MAGI-2-preview/commit/f68a0f9bbccbea56e0177a9bd912abc3b18ffe61) | [SandAI-org/MAGI-2-preview](https://github.com/SandAI-org/MAGI-2-preview) | [⭐ 654](https://github.com/SandAI-org/MAGI-2-preview/stargazers) | Official adoption/model code | MAGI-2 Preview inference stack with four-stream mHC handlers and kernels |
 | [2026-08-01 17:35](https://github.com/PipeNetwork/deepseek-v4-mlx/commit/a64642a2474b666f9e46020f0ce0b9986f756cfe) | [PipeNetwork/deepseek-v4-mlx](https://github.com/PipeNetwork/deepseek-v4-mlx) | [⭐ 6](https://github.com/PipeNetwork/deepseek-v4-mlx/stargazers) | Ecosystem integration | End-to-end MLX port with four-stream/20-step Sinkhorn HyperConnections and dedicated tests. |
 
-Package and API indexes associated with repositories above: [`hyper-connections` on PyPI](https://pypi.org/project/hyper-connections/) · [conda-forge](https://anaconda.org/conda-forge/hyper-connections) (currently trails the PyPI release) · [`mhc-pytorch`](https://pypi.org/project/mhc-pytorch/) · [`mhc-mlx`](https://pypi.org/project/mhc-mlx/) · [`sparse-hyper-connections`](https://pypi.org/project/sparse-hyper-connections/) · [`pmetal-mhc` API documentation](https://docs.rs/pmetal-mhc/latest/pmetal_mhc/) (0.7.0 CPU reference with explicit forward and backward passes).
+<a id="models-tutorials-and-discussions"></a>
 
-## Models, tutorials, and discussions
+## Resources
 
 ### Models, demos, and benchmarks
 
@@ -562,48 +383,25 @@ Package and API indexes associated with repositories above: [`hyper-connections`
 - [mHC paper discussion on r/MachineLearning](https://www.reddit.com/r/MachineLearning/comments/1q11e11/r_new_paper_by_deepseek_mhc_manifoldconstrained/)
 - [mHC discussion on r/LocalLLaMA](https://www.reddit.com/r/LocalLLaMA/comments/1q0zk1u/deepseek_new_paper_mhc_manifoldconstrained/)
 
-## Audit method and known exclusions
+### Packages and APIs
 
-The publication and resource-content audit through 2026-11-09 used entity-level deduplication and searched:
+Package and API indexes associated with repositories above: [`hyper-connections` on PyPI](https://pypi.org/project/hyper-connections/) · [conda-forge](https://anaconda.org/conda-forge/hyper-connections) (currently trails the PyPI release) · [`mhc-pytorch`](https://pypi.org/project/mhc-pytorch/) · [`mhc-mlx`](https://pypi.org/project/mhc-mlx/) · [`sparse-hyper-connections`](https://pypi.org/project/sparse-hyper-connections/) · [`pmetal-mhc` API documentation](https://docs.rs/pmetal-mhc/latest/pmetal_mhc/) (0.7.0 CPU reference with explicit forward and backward passes).
 
-1. arXiv title/abstract/full-text variants for `Hyper-Connections`, `hyper connections`, `mHC`, `manifold-constrained`, `Birkhoff`, and `residual streams`;
-2. forward citation networks of the original HC and mHC papers, followed by primary-source verification;
-3. OpenReview, PMLR, IEEE/Crossref, Zenodo, institutional publication pages, and author/project pages;
-4. GitHub repository and source-code search for paper titles, method names, common class names, kernels, and DeepSeek-V4 integrations;
-5. Hugging Face Hub collections/models/Spaces plus PyPI, conda-forge, crates/docs.rs, technical documentation, blogs, videos, and discussion indexes for non-paper resources;
-6. manual deduplication of arXiv/venue versions, model quantizations, forks, renamed repositories, vendored framework copies, and successor repositories;
-7. incremental post-2026-08-12, post-2026-08-14, and 2026-08-19–25 sweeps of new arXiv records, Crossref/publisher records, full-text HC/mHC comparison hits, GitHub repositories, source paths, model artifacts, and open integration PRs, with candidate repository files inspected on their current default branches;
-8. a 2026-08-20 06:35 UTC refresh of the then-indexed 119 GitHub roots, followed by a 2026-08-25 API health/path validation and metadata capture for the 12 added roots; those older snapshots were superseded by the accessible-root refresh below;
-9. a dedicated dataset/resource pass; no HC/mHC-specific standalone dataset was located, so general corpora such as FineWeb-Edu, TinyStories, and CIFAR are not mislabeled as HC resources;
-10. 2026-10-04 and 2026-10-09 incremental sweeps of arXiv/full text, author references, formal manuscripts, proceedings, GitHub default-branch sources, official model cards/configurations, release notes, packages, and technical explainers; nine verified formal records and fifteen repository roots were added. Renamed paper versions and proceedings are updated without double-counting;
-11. the October 15 and November 9 sweeps, with seven additional source-verified publications and 29 new canonical repository roots, including separately labeled documentation/project artifacts. The November API refresh covers every accessible indexed root; provenance, transfers, and exclusions are recorded in the [current audit ledger](docs/search-audit-2026-11-09.md).
+<a id="inclusion-policy"></a>
+<a id="background-and-notation"></a>
+<a id="research-lineage"></a>
+<a id="identity-hc--ihc-provenance"></a>
+<a id="method-comparison"></a>
+<a id="current-frontier"></a>
+<a id="suggested-reading-order"></a>
 
-For revised papers, **First public date** means the first publicly verifiable version that actually contains the HC/mHC-relevant material. This is why mHC-Diff is dated from arXiv v2 and the recurrence-scaling case study from v2, while FlowNet uses its earlier NeurIPS/OpenReview publication date rather than its later arXiv deposit.
+## Reading guide
 
-Publication rows aim for source-verified coverage under the policy above. Repositories and other artifacts are intentionally selective: inclusion favors upstream or author-linked projects, runnable implementations, substantive tests/benchmarks, stable model artifacts, and useful technical documentation. A GitHub keyword hit alone is insufficient.
+[HC/mHC reading guide](docs/reading-guide.md) · [Identity HC / iHC provenance](docs/reading-guide.md#identity-hc--ihc-provenance) · [Current research directions](docs/reading-guide.md#current-frontier)
 
-Not counted under the paper policy:
+<a id="audit-method-and-known-exclusions"></a>
 
-- [Attention Residuals](https://arxiv.org/abs/2603.15031), [SiameseNorm](https://arxiv.org/abs/2602.08064), [Multi-Gate Residuals](https://arxiv.org/abs/2605.23259), and [Diffusion-Adaptive Routing](https://arxiv.org/abs/2605.20708) are related residual-routing work, but do not develop or materially apply the HC/mHC residual-stream mechanism.
-- [Low-Rank Attention Residuals](https://arxiv.org/abs/2607.09694) compresses depth-routing keys while retaining full-width residual values and does not report an HC/mHC comparison; it is therefore an Attention-Residuals result, not low-rank HC state compression.
-- [Intern-S2-Mobius](https://arxiv.org/abs/2608.14290), [Tight Sinkhorn Convergence Rates](https://arxiv.org/abs/2608.11760), and [Riemannian Attention](https://arxiv.org/abs/2608.01283) mention HC/mHC only as prior work or an application example; none implements or formally evaluates the HC residual-stream mechanism.
-- [WhiteMatter](https://arxiv.org/abs/2608.18486) mentions HC/mHC only in related work and reports no HC/mHC implementation, baseline, or ablation. [V-REX](https://arxiv.org/abs/2608.20069) explicitly uses a standard decoder-only Transformer while forgoing architectural upgrades including mHC. Both are citation-only false positives from the 2026-08-19–25 sweep.
-- [Structured Residual Connectivity Matters for Diffusion Transformers](https://arxiv.org/abs/2609.33203) discusses HC/mHC/xHC in background and method distinctions without an HC experiment; it is a citation-only result, unlike SiHC's direct intervention study.
-- [Deep Delta Learning](https://arxiv.org/abs/2601.00417) is an input to later hybrid proposals, not itself an HC paper.
-- [TextResNet](https://arxiv.org/abs/2602.08306) maps mHC-inspired stability ideas into discrete textual optimization rather than implementing the neural residual-stream mechanism; it is kept outside the publication count under the present scope.
-- *Testing the Platonic Representation Hypothesis via Representation-Controlled Tokenization* uses “Harmonized Hyper-Connections” for bounded coupling among neighboring token representations, not Zhu/Xie-style persistent residual streams; it is an unrelated same-name method.
-- The workshop construction later published as [Transformers Provably Learn to Internalize Chain-of-Thought](https://arxiv.org/abs/2605.28600) uses a single-stream position-wise Highway/GTrXL-style gate and explicitly distinguishes it from HC in the later text; the earlier “position-wise Hyper-Connections” label is therefore not treated as HC-family evidence.
-- *An Application of Manifold-Constrained Hyper-Connection in a PWA for Sovereign Debt Restructuring* uses “mHC” for a learned latent representation manifold rather than the Birkhoff-constrained parallel residual-stream mechanism.
-- *Manifold-Constrained Hyper-Connections: A Geometric Framework for Revolutionizing AI Training Stability* (DOI `10.13140/RG.2.2.26203.22568`) uses a different hypernetwork/manifold-weight-generation concept and is a terminology false positive.
-- `gm24med/MHC` and its `mhc` package use a sliding history-window skip over prior layer states rather than Zhu/DeepSeek-style persistent parallel residual streams, so they are not listed as paper-faithful reference implementations.
-- `thainamhoang/muonHC` describes a planned Hyperloop-mHC climate experiment, but its README explicitly says the mHC module still requires implementation; it is omitted as a placeholder at this audit date.
-- `stephane-hairy/rlm-mhc` expands and contracts temporary flows inside a layer and then returns to a single residual stream, rather than maintaining the paper's persistent parallel residual state; it is therefore not listed as an mHC reference implementation.
-- `WYH302/Manifold-Constrained-Hyper-Connections-and-Prompting-for-SAM-in-Camouflaged-Scene-Segmentation` applies Birkhoff mixing inside a temporary adapter and immediately collapses to one stream without the full persistent HC update, so it is omitted under the same mechanism boundary.
-- `wtoth/hyper-connections` is an unfinished HC attempt: core forward paths contain placeholders and incompatible constructor calls, so it is not listed as a runnable reference implementation.
-- The public MUDDFormer code contains MUDD but no HC baseline; the public IntTravel repository contains only data/preprocessing; and the Engram demo explicitly mocks its mHC backbone. Their papers remain relevant, but those repositories are not represented as HC implementations.
-- `flagos-ai/FlagGems-vllm`, `dphnAI/sonar`, and `rednote-machine-learning/RedKnot` only synchronize or vendor HC code from already indexed FlagGems, vLLM, or SGLang roots. `aeonmindai/arc` labels its unconnected DeepSeek-V4 mHC file as work in progress; `Mesh-LLM/mesh-llm` is a lockfile-only match; and `ZhangDanyang-AMD/Lumen-RL` only invokes the already indexed Megatron Bridge. They are excluded rather than counted as independent HC implementations.
-- Forks, development predecessors, review snapshots, and exact-content copies found around the tokenbender, lucidrains, KromHC, mHC-GNN, mHC-PEFT, and vLLM-Ascend resources are deduplicated to the most relevant upstream or publication repository. The paper-linked `whale-agent-lab/colibri` fork is the stated exception because the exact runtime snapshot is part of the numerical experiment; its generic upstream is not listed as a second HC repository.
-- [Orthostochastic Residual Mixing for Manifold-Constrained Hyper-Connections](https://analemma.ai/papers/523b5fe7-e78c-4d60-ac87-e4b164d85f4a/) and [Range-Capped Sinkhorn for Reliable Manifold-Constrained Hyper-Connections](https://analemma.ai/papers/28c3de0a-db8b-464d-a8e5-f4099b1ceba7/) are explicitly generated by an automated research system. They are linked for traceability but excluded from the publication count pending stable authorship and independent verification.
+[Audit method and known exclusions](docs/search-audit-2026-11-09.md#audit-method-and-known-exclusions) · [2026-10-09 audit archive](docs/search-audit-2026-10-09.md)
 
 ## Pending verification
 
